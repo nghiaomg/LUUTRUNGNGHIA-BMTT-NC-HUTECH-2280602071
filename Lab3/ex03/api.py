@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from ecc_cipher import ECCCipher
-import bytes
 
 app = Flask(__name__)
 
@@ -26,7 +25,7 @@ def ecc_verify_signature():
     message = data['message']
     signature_hex = data['signature']
     _, public_key = ecc_cipher.load_keys()
-    signature = bytes.fromhex(signature_hex)
+    signature = bytes.fromhex(signature_hex) 
     is_verified = ecc_cipher.verify(message, signature, public_key)
     return jsonify({'is_verified': is_verified})
 

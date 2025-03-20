@@ -39,7 +39,7 @@ class MyApp(QMainWindow):
             response = requests.post(url, json=payload)
             if response.status_code == 200:
                 data = response.json()
-                self.ui.txt_sign.setText(data["signature"])
+                self.txt_sign.setText(data["signature"])  # Corrected line
                 
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Information)
@@ -50,11 +50,12 @@ class MyApp(QMainWindow):
         except requests.exceptions.RequestException as e:
             print("Error: %s" % e.message)
 
+
     def call_api_verify(self):
         url = "http://127.0.0.1:5000/api/ecc/verify"
         payload = {
-            "message": self.txt_info.toPlainText(),  # Removed self.ui
-            "signature": self.txt_sign.toPlainText()  # Removed self.ui
+            "message": self.txt_info.toPlainText(), 
+            "signature": self.txt_sign.toPlainText()  
         }
         try:
             response = requests.post(url, json=payload)
